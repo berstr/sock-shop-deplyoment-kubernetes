@@ -31,13 +31,6 @@ spec:
                                   value: DOES_NOT_EXISTS
                                 - name: JAVA_OPTS
                                   value: -javaagent:/agent.jar -Dspring.sleuth.enabled=false -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
-                          resources:
-                                limits:
-                                      cpu: 100m
-                                      memory: 100Mi
-                                requests:
-                                      cpu: 90m
-                                      memory: 100Mi
                           ports:
                                 - containerPort: 80
                           securityContext:
@@ -52,18 +45,6 @@ spec:
                           volumeMounts:
                                 - mountPath: /tmp
                                   name: tmp-volume
-                          livenessProbe:
-                                httpGet:
-                                      path: /health
-                                      port: 80
-                                initialDelaySeconds: 60
-                                periodSeconds: 3
-                          readinessProbe:
-                                httpGet:
-                                      path: /health
-                                      port: 80
-                                initialDelaySeconds: 30
-                                periodSeconds: 3
                   volumes:
                         - name: tmp-volume
                           emptyDir:

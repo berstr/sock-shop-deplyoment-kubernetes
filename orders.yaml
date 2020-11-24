@@ -49,6 +49,9 @@ spec:
                                       add:
                                             - NET_BIND_SERVICE
                                 readOnlyRootFilesystem: true
+                          volumeMounts:
+                                - mountPath: /tmp
+                                  name: tmp-volume
                           livenessProbe:
                                 httpGet:
                                       path: /health
@@ -61,6 +64,10 @@ spec:
                                       port: 80
                                 initialDelaySeconds: 30
                                 periodSeconds: 3
+                  volumes:
+                        - name: tmp-volume
+                          emptyDir:
+                                medium: Memory
                   nodeSelector:
                         beta.kubernetes.io/os: linux
 ---

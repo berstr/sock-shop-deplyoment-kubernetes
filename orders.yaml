@@ -17,7 +17,7 @@ spec:
             spec:
                   containers:
                         - name: orders
-                          image: weaveworksdemos/orders:0.4.7
+                          image: crshanks/sock-shop-orders-nr:1.0
                           env:
                                 - name: NEW_RELIC_LICENSE_KEY
                                   value: < NEW_RELIC_LICENSE_KEY >

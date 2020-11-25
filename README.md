@@ -13,5 +13,3 @@ sed -e 's|< NEW_RELIC_LICENSE_KEY >|ThisIsMyCorrectLicenseKey|g' - | kubectl app
 If you also want to change the NEW_RELIC_APP_NAME, you could use this command:
 
 sed -e 's|sock-shop-payment|bernd-sock-shop-payment|g' payment.yaml | sed -e 's|< NEW_RELIC_LICENSE_KEY >|ThisIsMyCorrectLicenseKey|g' - | kubectl apply -f -
-
-This is a test

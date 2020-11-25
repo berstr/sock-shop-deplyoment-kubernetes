@@ -4,7 +4,7 @@
 
 --------------------------
 
-Instead of changing the maifest files to set the correct NEW_RELIC_LICENSE_KEY and optionally a different NEW_RELIC_APP_NAME, you can also use the following command to set these values when applying the manifest file.
+Instead of changing the manifest files to set the correct NEW_RELIC_LICENSE_KEY and optionally a different NEW_RELIC_APP_NAME, you can also use the following command to set these values when applying the manifest file.
 
 For example, the following command will set the NEW_RELIC_LICENSE_KEY and pipe it into the kubectl apply command:
 

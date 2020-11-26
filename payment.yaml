@@ -23,16 +23,16 @@ spec:
                                 - name: NEW_RELIC_LICENSE_KEY
                                   value: < NEW_RELIC_LICENSE_KEY >
                                 - name: NEW_RELIC_APP_NAME
-                                  value: "sock-shop-payment"
+                                  value: sock-shop-payment
                                 - name: NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
                                   value: "true"
                           resources:
                                 limits:
                                       cpu: 100m
-                                      memory: 100Mi
+                                      memory: 10Mi
                                 requests:
-                                      cpu: 99m
-                                      memory: 100Mi
+                                      cpu: 250m
+                                      memory: 20Mi
                           ports:
                                 - containerPort: 80
                           securityContext:
@@ -49,13 +49,13 @@ spec:
                                       path: /health
                                       port: 80
                                 initialDelaySeconds: 60
-                                periodSeconds: 3
+                                periodSeconds: 15
                           readinessProbe:
                                 httpGet:
                                       path: /health
                                       port: 80
-                                initialDelaySeconds: 30
-                                periodSeconds: 3
+                                initialDelaySeconds: 20
+                                periodSeconds: 15
                   nodeSelector:
                         beta.kubernetes.io/os: linux
 ---

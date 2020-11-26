@@ -27,10 +27,10 @@ spec:
                                 - name: NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
                                   value: "true"
                           resources:
-                                limits:
+                                requests:
                                       cpu: 100m
                                       memory: 10Mi
-                                requests:
+                                limits:
                                       cpu: 250m
                                       memory: 20Mi
                           ports:

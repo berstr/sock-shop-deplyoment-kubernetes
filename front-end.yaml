@@ -16,11 +16,14 @@ spec:
             spec:
                   containers:
                         - name: front-end
-                          image: berndstransky/sock-shop-front-end:1.4
+                          image: berndstransky/sock-shop-front-end:1.5
                           resources:
                                 requests:
                                       cpu: 100m
                                       memory: 100Mi
+                                limits:
+                                      cpu: 250m
+                                      memory: 250Mi
                           ports:
                                 - containerPort: 8079
                           env:

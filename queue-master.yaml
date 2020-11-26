@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+      name: queue-master
+      labels:
+            name: queue-master
+      namespace: sock-shop
+spec:
+     selector:
+            matchLabels:
+                  name: queue-master
+      replicas: 1
+      template:
+            metadata:
+                  labels:
+                        name: queue-master
+            spec:
+                  containers:
+                        - name: queue-master
+                          image: crshanks/sock-shop-queue-master-nr:1.0
+                          env:
+                                - name: NEW_RELIC_LICENSE_KEY
+                                  value: < NEW_RELIC_LICENSE_KEY >
+                                - name: NEW_RELIC_APP_NAME
+                                  value: sock-shop-queue-master
+                                - name: NEW_RELIC_LOG_FILE_NAME
+                                  value: STDOUT
+                                - name: NEW_RELIC_CA_BUNDLE_PATH
+                                  value: DOES_NOT_EXISTS
+                                - name: NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+                                  value: "true"
+                                - name: JAVA_OPTS
+                                  value: -javaagent:/agent.jar -Dspring.sleuth.enabled=false -Xms64m -Xmx128m -XX:PermSize=32m -XX:MaxPermSize=64m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
+                                - name: ZIPKIN
+                                  value: zipkin.jaeger.svc.cluster.local
+                          resources:
+                                limits:
+                                      cpu: 300m
+                                      memory: 750Mi
+                                requests:
+                                      cpu: 500m
+                                      memory: 500Mi
+                          ports:
+                                - containerPort: 80
+                          livenessProbe:
+                                httpGet:
+                                      path: /health
+                                      port: 80
+                                initialDelaySeconds: 300
+                                periodSeconds: 15
+                          readinessProbe:
+                                httpGet:
+                                      path: /health
+                                      port: 80
+                                initialDelaySeconds: 60
+                                periodSeconds: 15
+                  nodeSelector:
+                        beta.kubernetes.io/os: linux
+---
+apiVersion: v1
+kind: Service
+metadata:
+      name: queue-master
+      labels:
+            name: queue-master
+      namespace: sock-shop
+spec:
+      ports:
+            # the port that this service should serve on
+            - port: 80
+              targetPort: 80
+      selector:
+            name: queue-master
